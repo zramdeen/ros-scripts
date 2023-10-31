@@ -30,4 +30,4 @@ sudo apt install ros-humble-ros-base
 sudo apt install ros-dev-tools
 
 # export to .bashrc
-echo "source /opt/ros/humble/setup.bash" >> "~/.bashrc"
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
