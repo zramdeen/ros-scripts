@@ -78,3 +78,21 @@ pip install flask
 # SETUP GIT KEYS
 #===================================
 # this part might need to be manual
+
+
+#===================================
+# CLONE REPOS
+#===================================
+print_title 'CLONING GITHUB REPOS'
+mkdir /root/software_ws
+mkdir /root/hardware_ws
+
+cd /root/software_ws/
+git clone -b cart git@github.com:FlaSpaceInst/ezrassor_controller_server.git
+
+cd /root/hardware_ws/
+git clone git@github.com:FlaSpaceInst/2023-ucf-L14---RE-RASSOR-Autonomy-for-Mark-2-Computing.git rerassor
+
+
+# some of the setup files got removed.
+# tbd ...
