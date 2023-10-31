@@ -7,9 +7,9 @@
 print_title() {
   local title="$1"
 
-  echo '==================================='
+  echo '======================================================'
   echo $title
-  echo '==================================='
+  echo '======================================================'
 }
 
 
@@ -93,6 +93,38 @@ git clone -b cart git@github.com:FlaSpaceInst/ezrassor_controller_server.git
 cd /root/hardware_ws/
 git clone git@github.com:FlaSpaceInst/2023-ucf-L14---RE-RASSOR-Autonomy-for-Mark-2-Computing.git rerassor
 
+echo 'exiting script... the following lines need to be updated'
+exit 0
 
-# some of the setup files got removed.
-# tbd ...
+# remove unnecessary  files
+cd rerassor
+rm -rf StepperTesting
+rm -rf arduino_client
+# folder deleted
+# mv Image\ Creation\ Files/ ~/ImageCreatingFiles #moves to home di
+mv rassor_serial_forward ..` #moves to hardware_ws
+
+#===================================
+# SETTING UP ROS2 NODES
+#===================================
+print_title 'SETTING UP ROS2 NODES'
+
+cd ~/hardware_ws
+colcon build
+
+cd ~/software_ws
+colcon build
+
+
+#===================================
+# SETTING UP AUTOMATION
+#===================================
+print_title 'SETTING UP AUTOMATION'
+
+# 
+cd /root/hardware_ws/rerassor
+mv Systemctl\ Starter\ files/* ~/
+
+# move files to locations
+cd ~
+mv ImageCreationFiles/* /etc/systemd/user/
