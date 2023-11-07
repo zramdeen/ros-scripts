@@ -93,16 +93,14 @@ git clone -b cart git@github.com:FlaSpaceInst/ezrassor_controller_server.git
 cd /root/hardware_ws/
 git clone git@github.com:FlaSpaceInst/2023-ucf-L14---RE-RASSOR-Autonomy-for-Mark-2-Computing.git rerassor
 
-echo 'exiting script... the following lines need to be updated'
-exit 0
-
 # remove unnecessary  files
 cd rerassor
 rm -rf StepperTesting
 rm -rf arduino_client
-# folder deleted
-# mv Image\ Creation\ Files/ ~/ImageCreatingFiles #moves to home di
-mv rassor_serial_forward ..` #moves to hardware_ws
+mv /root/hardware_ws/rassor_serial_forward
+
+# move rerassor repo to home dir
+mv rerassor ~/
 
 #===================================
 # SETTING UP ROS2 NODES
@@ -121,10 +119,24 @@ colcon build
 #===================================
 print_title 'SETTING UP AUTOMATION'
 
-# 
-cd /root/hardware_ws/rerassor
-mv Systemctl\ Starter\ files/* ~/
+# move startup files to correct locations
+cd ~/rerassor
+mv ros2_start.sh ros2_start_forwarder.sh /etc/systemd/user/
+mv ros2-start-forwarder.service ros2-start-processes.service /etc/systemd/system/
 
-# move files to locations
-cd ~
-mv ImageCreationFiles/* /etc/systemd/user/
+# reload the systemd configuration
+systemctl daemon-reload
+
+# change permissions of the services
+chmod 777 /etc/systemd/user/ros2_start.sh
+chmod 777 /etc/systemd/system/ros2-start-forwarder.service
+chmod 777 /etc/systemd/system/ros2-start-processes.service
+chmod 777 /etc/systemd/user/ros2_start_forwarder.sh
+
+# run the ros forwarder service
+systemctl enable ros2-start-forwarder.service
+systemctl status ros2-start-forwarder.service
+
+# run the ros process service
+systemctl enable ros2-start-processes.service
+systemctl status ros2-start-processes.service

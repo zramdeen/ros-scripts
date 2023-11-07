@@ -33,3 +33,5 @@ sudo apt install ros-dev-tools
 # # Replace ".bash" with your shell if you're not using bash
 # # Possible values are: setup.bash, setup.sh, setup.zsh
 # source /opt/ros/foxy/setup.bash
+# export to .bashrc
+echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
